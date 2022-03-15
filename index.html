@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weekly planner</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=no" />
+        <script type="text/javascript" src="service-worker.js" async></script>
+    </head>
+    <body>
+        <header>
+            <img src="icon_512.png" style="width: 5vw; height: auto;">
+            <h1>Weekly planner</h1>
+            <h2 id="currentWeekText"></h2>
+            <script type="text/javascript" async>
+                const currentWeekText = document.getElementById('currentWeekText');
+
+                var date = new Date();
+                var currentWeekDay;
+                var currentWeekDayNum = date.getDay();
+
+                switch(currentWeekDayNum){
+                    case 2:
+                        currentWeekDay = 'Thuesday';
+                        break;
+
+                    default:
+                        currentWeekDay = 'Saturday';
+                }
+
+                currentWeekText.textContent = currentWeekDay;
+            </script>
+        </header>
+        <main>
+            <table id="recent">
+                <tr>
+                    <td>
+                        <p>Time</p>
+                    </td>
+                    <td>
+                        <p>Monday</p>
+                    </td>
+                    <td>
+                        <p>Thuesday</p>
+                    </td>
+                    <td>
+                        <p>Wednesday</p>
+                    </td>
+                    <td>
+                        <p>Thursday</p>
+                    </td>
+                    <td>
+                        <p>Friday</p>
+                    </td>
+                    <td>
+                        <p>Saturday</p>
+                    </td>
+                    <td>
+                        <p>Sunday</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>00:00 AM</p>
+                    </td>
+                    <td class="calendarItem" onclick="calendarItemClick('RECENT', 'MON', '00:00 AM', this)">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                    <td class="calendarItem">
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
+            <table id="current"></table>
+            <table id="upcoming"></table>
+        </main>
+        <footer>
+            <p></p>
+        </footer>
+    </body>
+</html>
