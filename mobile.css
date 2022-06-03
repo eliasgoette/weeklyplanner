@@ -1,0 +1,112 @@
+@media (prefers-color-scheme: dark) {
+    html{
+        background-color: #333333;
+        color: white;
+    }
+
+    #logo{
+        background-image: url('icon_512_white.png');
+    }
+
+    .calendarItem{
+        background-color: darkgray;
+    }
+
+    .cards{
+        background-color: #333333;
+    }
+
+    #currentDay{
+        background-color: #ffffff44;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    html{
+        background-color: white;
+        color: #002060;
+    }
+
+    #logo{
+        background-image: url('icon_512.png');
+    }
+
+    .calendarItem{
+        background-color: currentColor;
+    }
+
+    .cards{
+        background-color: white;
+    }
+
+    #currentDay{
+        background-color: #00000044;
+    }
+}
+
+html{
+    font-family: calibri light;
+}
+
+header{
+    margin-bottom: 5vh;
+}
+
+#headerTable{
+    width: 100%;
+}
+
+#headerLogo{
+    padding-left: 3vw;
+    padding-right: 5vw;
+    border-right: solid 2px currentColor;
+}
+
+#logo{
+    width: 20vw;
+    height: 20vw;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#headerTitle{
+    padding-left: 5vw;
+}
+
+#weekCards{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.cards{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5vw;
+    width: 85vw;
+}
+
+#recentWeek{
+    position: absolute;
+    top: 0;
+    left: 10vw;
+    z-index: 0;
+}
+
+#currentWeek{
+    position: absolute;
+    top: 0;
+    left: 5vw;
+    z-index: 1;
+}
+
+#upcomingWeek{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+footer{
+    display: none;
+}
