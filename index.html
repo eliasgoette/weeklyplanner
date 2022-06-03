@@ -2,94 +2,181 @@
 <html>
     <head>
         <title>Weekly planner</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="desktop.css" media="screen">
+        <link rel="stylesheet" href="mobile-unfolded.css" media="screen and (orientation:portrait) and (min-width: 450px) and (hover: none)">
+        <link rel="stylesheet" href="mobile.css" media="screen and (orientation: portrait) and (max-width: 450px)">
         <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=no" />
         <script type="text/javascript" src="service-worker.js" async></script>
     </head>
     <body>
         <header>
-            <img src="icon_512.png" style="width: 5vw; height: auto;">
-            <h1>Weekly planner</h1>
-            <h2 id="currentWeekText"></h2>
-            <script type="text/javascript" async>
-                const currentWeekText = document.getElementById('currentWeekText');
-
-                var date = new Date();
-                var currentWeekDay;
-                var currentWeekDayNum = date.getDay();
-
-                switch(currentWeekDayNum){
-                    case 2:
-                        currentWeekDay = 'Thuesday';
-                        break;
-
-                    default:
-                        currentWeekDay = 'Saturday';
-                }
-
-                currentWeekText.textContent = currentWeekDay;
-            </script>
-        </header>
-        <main>
-            <table id="recent">
+            <table id="headerTable">
                 <tr>
-                    <td>
-                        <p>Time</p>
+                    <td id="headerLogo">
+                        <div id="logo"></div>
                     </td>
-                    <td>
-                        <p>Monday</p>
-                    </td>
-                    <td>
-                        <p>Thuesday</p>
-                    </td>
-                    <td>
-                        <p>Wednesday</p>
-                    </td>
-                    <td>
-                        <p>Thursday</p>
-                    </td>
-                    <td>
-                        <p>Friday</p>
-                    </td>
-                    <td>
-                        <p>Saturday</p>
-                    </td>
-                    <td>
-                        <p>Sunday</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>00:00 AM</p>
-                    </td>
-                    <td class="calendarItem" onclick="calendarItemClick('RECENT', 'MON', '00:00 AM', this)">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
-                    </td>
-                    <td class="calendarItem">
-                        <p></p>
+                    <td id="headerTitle">
+                        <h1>Weekly planner</h1>
+                        <h2 id="currentWeekDayText"></h2>
                     </td>
                 </tr>
             </table>
-            <table id="current"></table>
-            <table id="upcoming"></table>
+        </header>
+        <script type="text/javascript" async>
+            const currentWeekDayText = document.getElementById('currentWeekDayText');
+            
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const week = urlParams.get('week'); //Week to display (recent | current | upcoming)
+            const day = urlParams.get('day'); //Day to display
+
+            var date = new Date();
+            var currentWeekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+            var currentDate = [date.getMonth() + 1, date.getDate(), date.getFullYear()];
+            var isMobile = (window.matchMedia('screen and (max-width: 500px)')) ? true : false;
+            var isPortrait = (window.innerWidth <= window.innerHeight) ? true : false;
+
+            currentWeekDayText.innerText = currentWeekDay;
+</script>
+        <main>
+            <div id="weekCards">
+                <table id="recentWeek" class="cards" onclick="window.location.href = './?week=recent';">
+                    <tr>
+                        <td>
+                            <h4>Recent</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Monday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Tuesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Wednesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Thursday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Friday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Saturday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Sunday</p>
+                        </td>
+                    </tr>
+                </table>
+                <table id="currentWeek" class="cards" onclick="window.location.href = './?week=current';">
+                    <tr>
+                        <td>
+                            <h4>Current</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Monday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Tuesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day" id="currentDay">
+                            <p>Wednesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Thursday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Friday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Saturday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Sunday</p>
+                        </td>
+                    </tr>
+                </table>
+                <table id="upcomingWeek" class="cards" onclick="window.location.href = './?week=upcoming';">
+                    <tr>
+                        <td>
+                            <h4>Upcoming</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Monday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Tuesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Wednesday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Thursday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Friday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Saturday</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="day">
+                            <p>Sunday</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </main>
         <footer>
-            <p></p>
+            <p>&copy; <span id="copyrightYear"></span> Goette Web Development LLC.</p>
+            <p>Proud member of the Goette Holding</p>
+            <script type="text/javascript" async>
+                const copyrightYear = document.getElementById('copyrightYear');
+
+                let d = new Date();
+                copyrightYear.innerText = d.getFullYear();
+            </script>
         </footer>
     </body>
 </html>
